@@ -10,6 +10,7 @@ public:
     BinaryNode* getRight();
     int getValue();
     bool addChild(BinaryNode* child);
+    int removeChild();
 
 private:
     int m_value;

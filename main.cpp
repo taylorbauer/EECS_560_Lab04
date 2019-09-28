@@ -42,7 +42,7 @@ int main(int argc, char* argv[]) {
     BinaryTree myTree;
     for(int i = 0; i < valueCount; i++) {
         cout << "Inserting: " << tempArr[i] << endl;
-        myTree.insert(tempArr[i]);
+        myTree.insert(myTree.getRoot(), tempArr[i]);
     }
 
     Menu mainMenu(myTree);

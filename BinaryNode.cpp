@@ -53,3 +53,20 @@ void BinaryNode::setParent(BinaryNode* parent) {
     m_parent = parent;
     return;
 }
+
+int BinaryNode::removeChild() {
+    int value = 0;
+    if (childrenCount() == 2) {
+        value = m_right->getValue();
+        m_right = nullptr;
+        return value;
+    }
+    else if (childrenCount() == 1) {
+        value = m_left->getValue();
+        m_left = nullptr;
+        return value;
+    }
+    else {
+        return 0;
+    }
+}

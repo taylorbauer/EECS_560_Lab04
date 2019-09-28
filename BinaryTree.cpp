@@ -22,7 +22,7 @@ bool BinaryTree::isFull() {
     return false;
 }
 
-void BinaryTree::insert(int value) {
+void BinaryTree::insert(BinaryNode* root, int value) {
     BinaryNode* tempNode = new BinaryNode(value);
     cout << "made a new node with value " << tempNode->getValue() << endl;
 
@@ -55,6 +55,46 @@ void BinaryTree::insert(int value) {
     m_count ++;
 }
 
+int BinaryTree::remove() {
+    BinaryNode* lastNode = findLastNode(m_root);
+    m_count --;
+    return lastNode->getParent()->removeChild();
+}
+
+BinaryNode* BinaryTree::findLastNode(BinaryNode* root) {
+    if (root->childrenCount() == 2) {
+        return findLastNode(root->getRight());
+    }
+    else if (root->childrenCount() == 1) {
+        return findLastNode(root->getLeft());
+    }
+    else if (root ->childrenCount() == 0) {
+        return root;
+    }
+    else {
+        cout << "\n\nBIG ERROR IN findLastNode\n\n";
+        return root;
+    }
+}
+
+bool BinaryTree::leaf(int searchKey) {
+    bool found = searchForLeaf(m_root, searchKey);
+    return (found);
+}
+
+bool BinaryTree::searchForLeaf(BinaryNode* root, int searchKey) {
+    if (root->getValue() == searchKey) {
+        return (root->childrenCount() == 0);
+    }
+    if (root->childrenCount() != 0 && searchForLeaf(root->getLeft(), searchKey)) {
+        return true;
+    }
+    if (root->childrenCount() == 2 && searchForLeaf(root->getRight(), searchKey)) {
+        return true;
+    }
+    return false;
+}
+
 //  So far, this should only be called on a non-empty and non-complete tree
 BinaryNode* BinaryTree::findLastParent(BinaryNode* node) {
     cout << "Find last parent is being called on " << node->getValue() << endl;
@@ -84,24 +124,36 @@ BinaryNode* BinaryTree::findLastParent(BinaryNode* node) {
 
 }
 
-void BinaryTree::levelOrder() {
+void BinaryTree::levelOrder(bool leafFlag) {
     int height = getHeight(m_root);
     for (int i = 0; i < height; i++) {
-        levelOrder(m_root, i);
+        levelOrder(leafFlag, m_root, i);
     }
 }
 
-void BinaryTree::levelOrder(BinaryNode* node, int level) {
+void BinaryTree::levelOrder(bool leafFlag, BinaryNode* node, int level) {
     if (node == nullptr) {
         return;
     }
     else if (level == 0) {
-        cout << node->getValue() << ' ';
+        if (leafFlag == true) {
+            if (node->childrenCount() == 0) {
+                cout << node->getValue() << ' ';
+            }
+        }
+        else{
+            cout << node->getValue() << ' ';
+        }
     }
     else {
-        levelOrder(node->getLeft(), level - 1);
-        levelOrder(node->getRight(), level - 1);
+        levelOrder(leafFlag, node->getLeft(), level - 1);
+        levelOrder(leafFlag, node->getRight(), level - 1);
     }
+}
+
+
+void BinaryTree::printLeaves(){
+    levelOrder(true);
 }
 
 bool BinaryTree::isEmpty() {
@@ -120,4 +172,39 @@ int BinaryTree::getHeight(BinaryNode* node) {
         node = node->getLeft();
     }
     return height;
+}
+
+void BinaryTree::preOrder(BinaryNode* node) {
+    if (node == nullptr) {
+        return;
+    }
+    cout << node->getValue() << ' ';
+    preOrder(node->getLeft());
+    preOrder(node->getRight());
+    return;
+}
+
+void BinaryTree::postOrder(BinaryNode* node) {
+    if (node == nullptr) {
+        return;
+    }
+    postOrder(node->getLeft());
+    postOrder(node->getRight());
+    cout << node->getValue() << ' ';
+    return;
+}
+
+void BinaryTree::inOrder(BinaryNode* node) {
+    if (node == nullptr) {
+        return;
+    }
+    inOrder(node->getLeft());
+    cout << node->getValue() << ' ';
+    inOrder(node->getRight());
+    return;
+}
+
+
+BinaryNode* BinaryTree::getRoot(){
+    return m_root;
 }
