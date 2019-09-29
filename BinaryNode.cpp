@@ -1,3 +1,8 @@
+//
+//  Author: Taylor Bauer
+//  Date: September 28, 2019
+//
+
 #include "BinaryNode.h"
 
 BinaryNode::BinaryNode(int value) {

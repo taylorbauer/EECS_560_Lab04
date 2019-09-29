@@ -1,3 +1,8 @@
+//
+//  Author: Taylor Bauer
+//  Date: September 28, 2019
+//
+
 #include "BinaryTree.h"
 #include <iostream>
 
@@ -8,31 +13,35 @@ BinaryTree::BinaryTree() {
     m_count = 0;
 }
 
+BinaryTree::~BinaryTree() {
+    //TODO: Build destructor
+}
+
 bool BinaryTree::isFull() {
-    cout << "isFull is getting called\n";
+    //cout << "isFull is getting called\n";
     int iterator = 1;
     while (iterator <= m_count + 1) {
         if (iterator == m_count + 1) {
-            cout << "I think I'm full\n";
+            //cout << "I think I'm full\n";
             return true;
         } 
         iterator = iterator * 2;
     }
-    cout << "I don't think I'm full because count is " << m_count << " and iterator is " << iterator << endl;
+    //cout << "I don't think I'm full because count is " << m_count << " and iterator is " << iterator << endl;
     return false;
 }
 
 void BinaryTree::insert(BinaryNode* root, int value) {
     BinaryNode* tempNode = new BinaryNode(value);
-    cout << "made a new node with value " << tempNode->getValue() << endl;
+    //cout << "made a new node with value " << tempNode->getValue() << endl;
 
     //  Insert on an empty tree
     if (isEmpty()) {
         m_root = tempNode;
-        cout << "I think I'm empty\n";
+        //cout << "I think I'm empty\n";
     }
     else {
-        cout << "I don't think I'm empty\n";
+        //cout << "I don't think I'm empty\n";
         //Insert on a full tree
         if (isFull()) {
             BinaryNode* nodePtr = m_root;
@@ -97,13 +106,13 @@ bool BinaryTree::searchForLeaf(BinaryNode* root, int searchKey) {
 
 //  So far, this should only be called on a non-empty and non-complete tree
 BinaryNode* BinaryTree::findLastParent(BinaryNode* node) {
-    cout << "Find last parent is being called on " << node->getValue() << endl;
+    //cout << "Find last parent is being called on " << node->getValue() << endl;
     BinaryNode* furthestRight = node;
-    cout << "The furthest right node has " << furthestRight->childrenCount() << " children\n";
+    //cout << "The furthest right node has " << furthestRight->childrenCount() << " children\n";
     while (furthestRight->childrenCount() == 2) {
         furthestRight = furthestRight->getRight();
     }
-    cout << "The furthest right node has " << furthestRight->childrenCount() << " children\n";
+    //cout << "The furthest right node has " << furthestRight->childrenCount() << " children\n";
 
     if (furthestRight->childrenCount() == 1) {
         return furthestRight;

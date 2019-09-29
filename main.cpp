@@ -1,3 +1,8 @@
+//
+//  Author: Taylor Bauer
+//  Date: September 28, 2019
+//
+
 #include <iostream>
 #include <fstream>
 #include "BinaryTree.h"

@@ -1,3 +1,8 @@
+//
+//  Author: Taylor Bauer
+//  Date: September 28, 2019
+//
+
 #include "Menu.h"
 #include <iostream>
 using namespace std;
@@ -29,7 +34,12 @@ void Menu::run() {
         cin >> selection;
 
         if (selection == 1) {
-
+            if (m_tree.isFull()) {
+                cout << "The tree IS full.";
+            }
+            else {
+                cout << "The tree IS NOT full.";
+            }
         }
         else if (selection == 2) {
             cin.clear();
